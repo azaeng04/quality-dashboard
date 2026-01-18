@@ -1,0 +1,71 @@
+{
+  "lastUpdated": "2026-01-18T00:00:00Z",
+  "summary": {
+    "averageQuality": "A",
+    "totalVulnerabilities": 0,
+    "totalRepositories": 4,
+    "averageMutationScore": 72
+  },
+  "repositories": [
+    {
+      "name": "commerce.express",
+      "url": "https://github.com/azaeng04/commerce.express",
+      "language": "Java",
+      "hasTests": true,
+      "metrics": {
+        "quality": "A",
+        "vulnerabilities": 0,
+        "maintainability": "A",
+        "techDebt": "0h",
+        "bugs": 0,
+        "duplication": 0,
+        "mutationScore": "pending"
+      }
+    },
+    {
+      "name": "api-online-ecommerce",
+      "url": "https://github.com/azaeng04/api-online-ecommerce",
+      "language": "Java",
+      "hasTests": false,
+      "metrics": {
+        "quality": "pending",
+        "vulnerabilities": "pending",
+        "maintainability": "pending",
+        "techDebt": "pending",
+        "bugs": "pending",
+        "duplication": "pending",
+        "mutationScore": "N/A"
+      }
+    },
+    {
+      "name": "budget",
+      "url": "https://github.com/azaeng04/budget",
+      "language": "TypeScript",
+      "hasTests": false,
+      "metrics": {
+        "quality": "pending",
+        "vulnerabilities": "pending",
+        "maintainability": "pending",
+        "techDebt": "pending",
+        "bugs": "pending",
+        "duplication": "pending",
+        "mutationScore": "N/A"
+      }
+    },
+    {
+      "name": "ip3shoppingcartazatra",
+      "url": "https://github.com/azaeng04/ip3shoppingcartazatra",
+      "language": "PHP",
+      "hasTests": true,
+      "metrics": {
+        "quality": "pending",
+        "vulnerabilities": "pending",
+        "maintainability": "pending",
+        "techDebt": "pending",
+        "bugs": "pending",
+        "duplication": "pending",
+        "mutationScore": "pending"
+      }
+    }
+  ]
+}

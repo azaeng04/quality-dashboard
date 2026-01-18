@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quality Dashboard - azaeng04</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --border-color: #30363d;
+            --accent-green: #238636;
+            --accent-yellow: #d29922;
+            --accent-red: #da3633;
+            --accent-blue: #58a6ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .metrics-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .grade-a { color: var(--accent-green); }
+        .grade-b { color: #3fb950; }
+        .grade-c { color: var(--accent-yellow); }
+        .grade-d { color: #db6d28; }
+        .grade-f { color: var(--accent-red); }
+
+        .repos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .repo-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .repo-header {
+            background: var(--bg-tertiary);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .repo-name {
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .repo-name:hover {
+            text-decoration: underline;
+        }
+
+        .repo-language {
+            background: var(--bg-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .repo-metrics {
+            padding: 1.5rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-name {
+            color: var(--text-secondary);
+        }
+
+        .metric-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .badge-green { background: rgba(35, 134, 54, 0.2); color: #3fb950; }
+        .badge-yellow { background: rgba(210, 153, 34, 0.2); color: #d29922; }
+        .badge-red { background: rgba(218, 54, 51, 0.2); color: #f85149; }
+        .badge-grey { background: rgba(139, 148, 158, 0.2); color: #8b949e; }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .legend {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .legend h3 {
+            margin-bottom: 1rem;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .legend-item strong {
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Code Quality Dashboard</h1>
+            <p class="subtitle">Quality metrics for azaeng04's repositories</p>
+        </header>
+
+        <section class="metrics-summary">
+            <div class="metric-card">
+                <div class="metric-value grade-a">A</div>
+                <div class="metric-label">Average Quality</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value grade-a">0</div>
+                <div class="metric-label">Total Vulnerabilities</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">4</div>
+                <div class="metric-label">Repositories</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value grade-b">72%</div>
+                <div class="metric-label">Avg Mutation Score</div>
+            </div>
+        </section>
+
+        <section class="repos-grid">
+            <div class="repo-card">
+                <div class="repo-header">
+                    <a href="https://github.com/azaeng04/commerce.express" class="repo-name">commerce.express</a>
+                    <span class="repo-language">Java</span>
+                </div>
+                <div class="repo-metrics">
+                    <div class="metric-row">
+                        <span class="metric-name">Quality Grade</span>
+                        <span class="metric-badge badge-green">A</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Security</span>
+                        <span class="metric-badge badge-green">0 vulnerabilities</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Maintainability</span>
+                        <span class="metric-badge badge-green">A</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Tech Debt</span>
+                        <span class="metric-badge badge-green">0h</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Bugs</span>
+                        <span class="metric-badge badge-green">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Duplication</span>
+                        <span class="metric-badge badge-green">0%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Mutation Score</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repo-card">
+                <div class="repo-header">
+                    <a href="https://github.com/azaeng04/api-online-ecommerce" class="repo-name">api-online-ecommerce</a>
+                    <span class="repo-language">Java</span>
+                </div>
+                <div class="repo-metrics">
+                    <div class="metric-row">
+                        <span class="metric-name">Quality Grade</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Security</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Maintainability</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Tech Debt</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Bugs</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Duplication</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Mutation Score</span>
+                        <span class="metric-badge badge-grey">N/A (no tests)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repo-card">
+                <div class="repo-header">
+                    <a href="https://github.com/azaeng04/budget" class="repo-name">budget</a>
+                    <span class="repo-language">TypeScript</span>
+                </div>
+                <div class="repo-metrics">
+                    <div class="metric-row">
+                        <span class="metric-name">Quality Grade</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Security</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Maintainability</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Tech Debt</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Bugs</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Duplication</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Mutation Score</span>
+                        <span class="metric-badge badge-grey">N/A (no tests)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repo-card">
+                <div class="repo-header">
+                    <a href="https://github.com/azaeng04/ip3shoppingcartazatra" class="repo-name">ip3shoppingcartazatra</a>
+                    <span class="repo-language">PHP</span>
+                </div>
+                <div class="repo-metrics">
+                    <div class="metric-row">
+                        <span class="metric-name">Quality Grade</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Security</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Maintainability</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Tech Debt</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Bugs</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Duplication</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-name">Mutation Score</span>
+                        <span class="metric-badge badge-yellow">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="legend">
+            <h3>📈 Metrics Legend</h3>
+            <div class="legend-grid">
+                <div class="legend-item"><strong>Quality Grade:</strong> Overall code quality (A-F)</div>
+                <div class="legend-item"><strong>Security:</strong> Vulnerabilities detected</div>
+                <div class="legend-item"><strong>Maintainability:</strong> Ease of maintenance (A-F)</div>
+                <div class="legend-item"><strong>Tech Debt:</strong> Time to fix code smells</div>
+                <div class="legend-item"><strong>Bugs:</strong> Potential bugs found</div>
+                <div class="legend-item"><strong>Duplication:</strong> % of duplicated code</div>
+                <div class="legend-item"><strong>Mutation Score:</strong> Test effectiveness %</div>
+            </div>
+        </section>
+
+        <p class="last-updated">Last updated: <span id="update-time"></span></p>
+    </div>
+
+    <script>
+        document.getElementById('update-time').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>
