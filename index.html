@@ -16,6 +16,7 @@
             --accent-yellow: #d29922;
             --accent-red: #da3633;
             --accent-blue: #58a6ff;
+            --accent-purple: #a371f7;
         }
 
         * {
@@ -39,7 +40,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         h1 {
@@ -50,6 +51,37 @@
         .subtitle {
             color: var(--text-secondary);
             font-size: 1.1rem;
+        }
+
+        .dashboard-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        .dashboard-link:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .dashboard-link svg {
+            width: 16px;
+            height: 16px;
         }
 
         .metrics-summary {
@@ -106,6 +138,12 @@
             align-items: center;
         }
 
+        .repo-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
         .repo-name {
             font-weight: 600;
             color: var(--accent-blue);
@@ -114,6 +152,21 @@
 
         .repo-name:hover {
             text-decoration: underline;
+        }
+
+        .repo-links {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .repo-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .repo-links a:hover {
+            color: var(--accent-blue);
         }
 
         .repo-language {
@@ -155,11 +208,34 @@
         .badge-red { background: rgba(218, 54, 51, 0.2); color: #f85149; }
         .badge-grey { background: rgba(139, 148, 158, 0.2); color: #8b949e; }
 
-        .last-updated {
+        .footer-info {
             text-align: center;
             margin-top: 2rem;
             color: var(--text-secondary);
             font-size: 0.9rem;
+        }
+
+        .footer-info p {
+            margin: 0.25rem 0;
+        }
+
+        .auto-refresh {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .refresh-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .legend {
@@ -188,186 +264,46 @@
         .legend-item strong {
             color: var(--accent-blue);
         }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: var(--accent-red);
+            background: rgba(218, 54, 51, 0.1);
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 Code Quality Dashboard</h1>
+            <h1>Code Quality Dashboard</h1>
             <p class="subtitle">Quality metrics for azaeng04's repositories</p>
+            <div class="dashboard-links">
+                <a href="https://sonarcloud.io/organizations/azaeng04/projects" class="dashboard-link" target="_blank">
+                    <svg viewBox="0 0 512 512" fill="currentColor"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208-93.3 208-208 208z"/><path d="M256 128c-70.7 0-128 57.3-128 128s57.3 128 128 128 128-57.3 128-128-57.3-128-128-128zm0 208c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"/></svg>
+                    SonarCloud
+                </a>
+                <a href="https://github.com/azaeng04" class="dashboard-link" target="_blank">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                    GitHub Profile
+                </a>
+            </div>
         </header>
 
-        <section class="metrics-summary">
-            <div class="metric-card">
-                <div class="metric-value grade-a">A</div>
-                <div class="metric-label">Average Quality</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value grade-a">0</div>
-                <div class="metric-label">Total Vulnerabilities</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">4</div>
-                <div class="metric-label">Repositories</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value grade-b">72%</div>
-                <div class="metric-label">Avg Mutation Score</div>
-            </div>
-        </section>
-
-        <section class="repos-grid">
-            <div class="repo-card">
-                <div class="repo-header">
-                    <a href="https://github.com/azaeng04/commerce.express" class="repo-name">commerce.express</a>
-                    <span class="repo-language">Java</span>
-                </div>
-                <div class="repo-metrics">
-                    <div class="metric-row">
-                        <span class="metric-name">Quality Grade</span>
-                        <span class="metric-badge badge-green">A</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Security</span>
-                        <span class="metric-badge badge-green">0 vulnerabilities</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Maintainability</span>
-                        <span class="metric-badge badge-green">A</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Tech Debt</span>
-                        <span class="metric-badge badge-green">0h</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Bugs</span>
-                        <span class="metric-badge badge-green">0</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Duplication</span>
-                        <span class="metric-badge badge-green">0%</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Mutation Score</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="repo-card">
-                <div class="repo-header">
-                    <a href="https://github.com/azaeng04/api-online-ecommerce" class="repo-name">api-online-ecommerce</a>
-                    <span class="repo-language">Java</span>
-                </div>
-                <div class="repo-metrics">
-                    <div class="metric-row">
-                        <span class="metric-name">Quality Grade</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Security</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Maintainability</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Tech Debt</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Bugs</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Duplication</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Mutation Score</span>
-                        <span class="metric-badge badge-grey">N/A (no tests)</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="repo-card">
-                <div class="repo-header">
-                    <a href="https://github.com/azaeng04/budget" class="repo-name">budget</a>
-                    <span class="repo-language">TypeScript</span>
-                </div>
-                <div class="repo-metrics">
-                    <div class="metric-row">
-                        <span class="metric-name">Quality Grade</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Security</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Maintainability</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Tech Debt</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Bugs</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Duplication</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Mutation Score</span>
-                        <span class="metric-badge badge-grey">N/A (no tests)</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="repo-card">
-                <div class="repo-header">
-                    <a href="https://github.com/azaeng04/ip3shoppingcartazatra" class="repo-name">ip3shoppingcartazatra</a>
-                    <span class="repo-language">PHP</span>
-                </div>
-                <div class="repo-metrics">
-                    <div class="metric-row">
-                        <span class="metric-name">Quality Grade</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Security</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Maintainability</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Tech Debt</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Bugs</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Duplication</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                    <div class="metric-row">
-                        <span class="metric-name">Mutation Score</span>
-                        <span class="metric-badge badge-yellow">Pending</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div id="dashboard-content">
+            <div class="loading">Loading dashboard data...</div>
+        </div>
 
         <section class="legend">
-            <h3>📈 Metrics Legend</h3>
+            <h3>Metrics Legend</h3>
             <div class="legend-grid">
                 <div class="legend-item"><strong>Quality Grade:</strong> Overall code quality (A-F)</div>
                 <div class="legend-item"><strong>Security:</strong> Vulnerabilities detected</div>
@@ -379,11 +315,211 @@
             </div>
         </section>
 
-        <p class="last-updated">Last updated: <span id="update-time"></span></p>
+        <div class="footer-info">
+            <p>Last updated: <span id="update-time">-</span></p>
+            <p class="auto-refresh">
+                <span class="refresh-indicator"></span>
+                Auto-refreshes every 5 minutes
+            </p>
+        </div>
     </div>
 
     <script>
-        document.getElementById('update-time').textContent = new Date().toLocaleString();
+        const SONARCLOUD_ORG = 'azaeng04';
+        const REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
+
+        // Map repo names to SonarCloud project keys
+        const sonarcloudProjects = {
+            'commerce.express': 'azaeng04_commerce.express',
+            'api-online-ecommerce': 'azaeng04_api-online-ecommerce',
+            'budget': 'azaeng04_budget',
+            'ip3shoppingcartazatra': 'azaeng04_ip3shoppingcartazatra'
+        };
+
+        function getGradeClass(grade) {
+            if (!grade || grade === 'pending' || grade === 'N/A') return '';
+            const g = String(grade).toUpperCase();
+            if (g === 'A') return 'grade-a';
+            if (g === 'B') return 'grade-b';
+            if (g === 'C') return 'grade-c';
+            if (g === 'D') return 'grade-d';
+            return 'grade-f';
+        }
+
+        function getBadgeClass(value, type) {
+            if (value === 'pending' || value === 'N/A') return 'badge-yellow';
+
+            if (type === 'grade') {
+                const g = String(value).toUpperCase();
+                if (g === 'A' || g === 'B') return 'badge-green';
+                if (g === 'C') return 'badge-yellow';
+                return 'badge-red';
+            }
+
+            if (type === 'count') {
+                const num = parseInt(value) || 0;
+                if (num === 0) return 'badge-green';
+                if (num <= 5) return 'badge-yellow';
+                return 'badge-red';
+            }
+
+            if (type === 'percentage') {
+                const num = parseFloat(value) || 0;
+                if (num <= 3) return 'badge-green';
+                if (num <= 10) return 'badge-yellow';
+                return 'badge-red';
+            }
+
+            if (type === 'mutation') {
+                if (value === 'pending') return 'badge-yellow';
+                if (value === 'N/A') return 'badge-grey';
+                const num = parseFloat(value) || 0;
+                if (num >= 80) return 'badge-green';
+                if (num >= 60) return 'badge-yellow';
+                return 'badge-red';
+            }
+
+            return 'badge-grey';
+        }
+
+        function formatMetricValue(value, type) {
+            if (value === 'pending') return 'Pending';
+            if (value === 'N/A') return 'N/A';
+
+            if (type === 'vulnerabilities') {
+                return value === 0 ? '0 vulnerabilities' : `${value} vulnerabilities`;
+            }
+            if (type === 'duplication') {
+                return `${value}%`;
+            }
+            if (type === 'mutation') {
+                if (typeof value === 'number') return `${value}%`;
+                return value;
+            }
+            return value;
+        }
+
+        function getSonarCloudUrl(repoName) {
+            const projectKey = sonarcloudProjects[repoName];
+            if (!projectKey) return null;
+            return `https://sonarcloud.io/project/overview?id=${projectKey}`;
+        }
+
+        function renderSummary(summary) {
+            return `
+                <section class="metrics-summary">
+                    <div class="metric-card">
+                        <div class="metric-value ${getGradeClass(summary.averageQuality)}">${summary.averageQuality || '-'}</div>
+                        <div class="metric-label">Average Quality</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value ${summary.totalVulnerabilities === 0 ? 'grade-a' : 'grade-f'}">${summary.totalVulnerabilities ?? '-'}</div>
+                        <div class="metric-label">Total Vulnerabilities</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">${summary.totalRepositories || '-'}</div>
+                        <div class="metric-label">Repositories</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value ${getGradeClass(summary.averageMutationScore >= 80 ? 'A' : summary.averageMutationScore >= 60 ? 'B' : 'C')}">${summary.averageMutationScore ? summary.averageMutationScore + '%' : '-'}</div>
+                        <div class="metric-label">Avg Mutation Score</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderRepoCard(repo) {
+            const m = repo.metrics;
+            const sonarUrl = getSonarCloudUrl(repo.name);
+
+            return `
+                <div class="repo-card">
+                    <div class="repo-header">
+                        <div class="repo-title">
+                            <a href="${repo.url}" class="repo-name" target="_blank">${repo.name}</a>
+                            <div class="repo-links">
+                                ${sonarUrl ? `<a href="${sonarUrl}" target="_blank">SonarCloud</a>` : ''}
+                            </div>
+                        </div>
+                        <span class="repo-language">${repo.language}</span>
+                    </div>
+                    <div class="repo-metrics">
+                        <div class="metric-row">
+                            <span class="metric-name">Quality Grade</span>
+                            <span class="metric-badge ${getBadgeClass(m.quality, 'grade')}">${formatMetricValue(m.quality, 'grade')}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-name">Security</span>
+                            <span class="metric-badge ${getBadgeClass(m.vulnerabilities, 'count')}">${formatMetricValue(m.vulnerabilities, 'vulnerabilities')}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-name">Maintainability</span>
+                            <span class="metric-badge ${getBadgeClass(m.maintainability, 'grade')}">${formatMetricValue(m.maintainability, 'grade')}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-name">Tech Debt</span>
+                            <span class="metric-badge ${getBadgeClass(m.techDebt, 'grade')}">${formatMetricValue(m.techDebt, 'techDebt')}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-name">Bugs</span>
+                            <span class="metric-badge ${getBadgeClass(m.bugs, 'count')}">${formatMetricValue(m.bugs, 'bugs')}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-name">Duplication</span>
+                            <span class="metric-badge ${getBadgeClass(m.duplication, 'percentage')}">${formatMetricValue(m.duplication, 'duplication')}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-name">Mutation Score</span>
+                            <span class="metric-badge ${getBadgeClass(m.mutationScore, 'mutation')}">${formatMetricValue(m.mutationScore, 'mutation')}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderDashboard(data) {
+            const content = document.getElementById('dashboard-content');
+
+            let html = renderSummary(data.summary);
+            html += '<section class="repos-grid">';
+            html += data.repositories.map(repo => renderRepoCard(repo)).join('');
+            html += '</section>';
+
+            content.innerHTML = html;
+
+            // Update timestamp
+            const updateTime = document.getElementById('update-time');
+            if (data.lastUpdated) {
+                updateTime.textContent = new Date(data.lastUpdated).toLocaleString();
+            } else {
+                updateTime.textContent = new Date().toLocaleString();
+            }
+        }
+
+        function showError(message) {
+            const content = document.getElementById('dashboard-content');
+            content.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        async function loadDashboard() {
+            try {
+                const response = await fetch('data.json?' + Date.now());
+                if (!response.ok) {
+                    throw new Error('Failed to load dashboard data');
+                }
+                const data = await response.json();
+                renderDashboard(data);
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                showError('Failed to load dashboard data. Please refresh the page.');
+            }
+        }
+
+        // Initial load
+        loadDashboard();
+
+        // Auto-refresh every 5 minutes
+        setInterval(loadDashboard, REFRESH_INTERVAL);
     </script>
 </body>
 </html>
